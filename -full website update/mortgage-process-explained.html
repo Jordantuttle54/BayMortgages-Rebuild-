@@ -167,6 +167,8 @@ header.site-head-group{ padding-top:var(--utility-h, 42px); }
 .site-header .container{ display:flex; align-items:center; justify-content:space-between; padding-top:16px; padding-bottom:16px; gap:18px; }
 .logo{ display:flex; align-items:center; gap:10px; text-decoration:none; }
 .logo-mark{ width:30px; height:30px; flex:none; }
+.logo-image{ height:30px; width:auto; display:block; }
+.logo-image-mobile{ height:24px; }
 .logo-word{ font-family:var(--serif); font-size:1.5rem; font-weight:700; letter-spacing:.01em; color:var(--heading); }
 .logo-word b{ color:var(--teal-dark); font-style:italic; }
 
@@ -674,8 +676,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible{ outline:3px solid 
   <div class="site-header">
     <div class="container">
       <a class="logo" href="index.html" aria-label="Bay Mortgages home">
-        <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true"><polygon points="20,6 34,32 6,32" fill="#0fb8a6"/></svg>
-        <span class="logo-word">Bay <b>Mortgages</b></span>
+        <img class="logo-image" src="images/logo-bay-mortgages.png" alt="Bay Mortgages">
       </a>
 
       <nav class="main-nav" aria-label="Primary">
@@ -737,7 +738,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible{ outline:3px solid 
 <div class="mobile-nav" id="mobileNav">
   <div class="mobile-nav-panel">
     <div class="mobile-nav-head">
-      <span class="logo-word">Bay <b>Mortgages</b></span>
+      <img class="logo-image logo-image-mobile" src="images/logo-bay-mortgages.png" alt="Bay Mortgages">
       <button class="mobile-nav-close" id="navClose" aria-label="Close menu">×</button>
     </div>
     <nav class="mobile-nav-list">
@@ -1022,12 +1023,20 @@ a:focus-visible, button:focus-visible, summary:focus-visible{ outline:3px solid 
   var widget = document.getElementById('searchWidget');
   var btn = document.getElementById('searchToggle');
   var input = document.getElementById('siteSearchInput');
+  var searchForm = document.getElementById('siteSearchForm');
   if(!widget || !btn || !input) return;
   btn.addEventListener('click', function(){
     var isOpen = widget.classList.toggle('open');
     btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     if(isOpen){ input.focus(); } else { input.value=''; }
   });
+  if(searchForm){
+    searchForm.addEventListener('submit', function(e){
+      // Preview only — the live site wires this to real site search.
+      e.preventDefault();
+      alert('Thanks — search isn\'t wired up on this preview yet, but the live site will search properly.');
+    });
+  }
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape' && widget.classList.contains('open')){
       widget.classList.remove('open');
